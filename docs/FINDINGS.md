@@ -5,6 +5,13 @@
 **Source files:** `data/VF_export.csv` (7,372 process rows) · `data/VF_Scrap_export.csv` (386 scrap rows)
 **Overall scrap rate observed:** **5.24 %** (348 process-related, 38 non-process)
 
+> ⚠️ **Data-currency note (added 2026-06-01).** This report reflects the **old** export
+> (`VF_export_old.csv`, 7,372 rows, → 6 May). The data was later refreshed to `VF_export_new.csv`
+> (8,230 rows, → 13 May) **without** a matching scrap-label refresh, which drops the apparent rate to
+> ≈ 4.69 %. The methodology and findings below stand; the **headline numbers are old-data**. See
+> [`../data/README.md`](../data/README.md) and [`PROJECT_LOG.md`](PROJECT_LOG.md) (R-1, R-2) before
+> quoting figures externally.
+
 > **Reading order**
 > Executive summary → Approach → Data → Methodology → Hypotheses → Findings → Engine → Validation → **Assumptions** → **Open process questions** → What we did not do → Deliverables.
 
