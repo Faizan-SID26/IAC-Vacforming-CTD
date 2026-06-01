@@ -1,0 +1,65 @@
+tool,param,good_p5,good_p50,good_p95,scrap_p50,out_of_window_in_scrap_pct
+ALL,Glue Temp,144.0,155.0,157.0,154.0,2.8
+ALL,Roller Gap LH,9.0,19.0,20.0,19.0,0.0
+ALL,Roller Gap RH,1.0,18.0,18.0,18.0,0.0
+ALL,Temp. THT at Trigger,144.0,159.0,174.0,155.0,17.6
+ALL,Temp. BHT at Trigger,165.0,190.0,207.0,185.0,15.3
+ALL,Temp Z1,115.0,144.0,175.0,144.0,16.3
+ALL,Temp Z2,111.0,140.0,168.0,139.0,16.3
+ALL,Temp Z3,110.0,138.0,164.0,137.0,16.3
+ALL,Temp Z4,0.0,0.0,145.0,0.0,9.3
+ALL,heating time (tens of seconds),420.0,469.0,540.0,470.0,10.9
+ALL,Stretch Cross Form,4850.0,4880.0,9800.0,4880.0,0.0
+ALL,Stetch Length Form,15400.0,15400.0,18500.0,15400.0,0.0
+ALL,Vacuum Time Tool Cavity A,64.0,72.0,87.0,72.0,8.3
+ALL,Vacuum Time Tool Cavity B,60.0,71.0,86.0,71.0,13.2
+ALL,Machine Cycle Time,683.0,780.0,9999.0,793.0,3.4
+ALL,Pyro Clean,39.0,477.5,908.0,371.5,7.3
+1,Glue Temp,144.0,146.0,147.0,146.0,3.1
+1,Roller Gap LH,9.0,10.0,11.0,10.0,0.0
+1,Roller Gap RH,1.0,1.0,3.0,1.0,0.0
+1,Temp. THT at Trigger,150.0,155.0,210.0,155.0,2.5
+1,Temp. BHT at Trigger,150.0,180.0,202.0,181.0,1.8
+1,Temp Z1,110.0,140.0,179.0,144.0,10.4
+1,Temp Z2,106.0,135.0,170.0,137.0,9.8
+1,Temp Z3,106.0,134.0,172.0,136.0,11.0
+1,Temp Z4,102.0,128.0,164.0,131.0,4.9
+1,heating time (tens of seconds),333.0,467.0,699.2,475.0,6.7
+1,Stretch Cross Form,9800.0,9800.0,9800.0,9800.0,0.0
+1,Stetch Length Form,18500.0,18500.0,18500.0,18500.0,0.0
+1,Vacuum Time Tool Cavity A,55.0,84.0,87.0,76.0,7.4
+1,Vacuum Time Tool Cavity B,47.0,83.0,86.0,76.0,16.6
+1,Machine Cycle Time,721.8,834.0,9999.0,839.0,1.8
+1,Pyro Clean,26.0,253.0,470.0,292.0,0.6
+2,Glue Temp,154.0,155.0,158.0,155.5,2.7
+2,Roller Gap LH,19.0,19.0,20.0,19.0,0.0
+2,Roller Gap RH,18.0,18.0,18.0,18.0,0.0
+2,Temp. THT at Trigger,142.0,160.0,172.0,157.0,24.7
+2,Temp. BHT at Trigger,172.0,194.0,207.0,190.0,28.7
+2,Temp Z1,119.0,142.0,166.0,142.0,16.0
+2,Temp Z2,115.0,138.0,163.0,139.0,16.0
+2,Temp Z3,114.0,136.0,160.0,137.0,18.7
+2,Temp Z4,0.0,0.0,0.0,0.0,0.0
+2,heating time (tens of seconds),440.0,470.0,510.0,470.0,8.7
+2,Stretch Cross Form,4850.0,4850.0,4880.0,4850.0,0.0
+2,Stetch Length Form,15400.0,15400.0,15400.0,15400.0,0.0
+2,Vacuum Time Tool Cavity A,64.0,71.0,73.0,71.0,10.7
+2,Vacuum Time Tool Cavity B,64.0,71.0,73.0,71.0,10.0
+2,Machine Cycle Time,676.0,766.0,9999.0,768.5,3.3
+2,Pyro Clean,34.0,587.0,920.0,422.5,14.7
+8,Glue Temp,154.0,156.0,158.0,155.0,2.7
+8,Roller Gap LH,19.0,19.0,19.0,19.0,0.0
+8,Roller Gap RH,18.0,18.0,18.0,18.0,0.0
+8,Temp. THT at Trigger,141.0,170.0,170.0,160.0,26.0
+8,Temp. BHT at Trigger,177.0,193.0,213.0,190.0,28.8
+8,Temp Z1,128.0,155.0,180.0,147.0,19.2
+8,Temp Z2,123.85,150.0,173.0,143.0,26.0
+8,Temp Z3,119.0,144.0,164.0,139.0,21.9
+8,Temp Z4,0.0,0.0,0.0,0.0,0.0
+8,heating time (tens of seconds),439.0,470.0,541.0,463.0,6.8
+8,Stretch Cross Form,4880.0,4880.0,4880.0,4880.0,0.0
+8,Stetch Length Form,15400.0,15400.0,15400.0,15400.0,0.0
+8,Vacuum Time Tool Cavity A,71.0,73.0,75.0,73.0,5.5
+8,Vacuum Time Tool Cavity B,71.0,72.0,75.0,72.0,4.1
+8,Machine Cycle Time,677.0,748.0,9999.0,749.0,4.1
+8,Pyro Clean,520.0,702.0,920.15,730.0,17.8

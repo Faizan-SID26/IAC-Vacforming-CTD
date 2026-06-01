@@ -1,0 +1,71 @@
+tool,defect,feature,perm_imp,best_model
+1,Wrinkle,Pos Vinyl S Width,0.1554,L1_LR
+1,Wrinkle,Temp. THT at Trigger,0.0947,L1_LR
+1,Wrinkle,Temp Z3,0.0853,L1_LR
+1,Wrinkle,Capacity BHT,0.0769,L1_LR
+1,Wrinkle,Temp Z1,0.0723,L1_LR
+1,Wrinkle,Vacuum Time Tool Cavity A,0.0702,L1_LR
+1,Wrinkle,Capacity THT,0.0605,L1_LR
+1,Dent,Pos Vinyl N Width,0.0035,RF
+1,Dent,Pyro Clean,0.0031,RF
+1,Dent,Pos Vinyl N Length,0.0009,RF
+1,Dent,Pos Vinyl N Width_active,0.0007,RF
+1,Dent,Machine Cycle Time,0.0007,RF
+1,Dent,Pos Vinyl N Length_active,0.0007,RF
+1,Dent,Pos Vinyl S Width,0.0006,RF
+1,Out of dimension,Pyro Clean,0.0027,RF
+1,Out of dimension,Roller Gap LH,0.0022,RF
+1,Out of dimension,Machine Cycle Time,0.0016,RF
+1,Out of dimension,Vacuum Time Tool Cavity A,0.0014,RF
+1,Out of dimension,Pos Vinyl S Length,0.0012,RF
+1,Out of dimension,Vacuum Time Tool Cavity B,0.0008,RF
+1,Out of dimension,Pos Vinyl N Length,0.0007,RF
+1,Bad edge wrap,Temp. BHT at Trigger,0.0093,RF
+1,Bad edge wrap,BT Circuit 2 Temp,0.0082,RF
+1,Bad edge wrap,Pyro Clean,0.0057,RF
+1,Bad edge wrap,Pos Vinyl S Width,0.0036,RF
+1,Bad edge wrap,Roller Gap LH,0.003,RF
+1,Bad edge wrap,Time Feed to Vacuum 1,0.0027,RF
+1,Bad edge wrap,BT Circuit 1 Temp,0.0019,RF
+2,Dent,Pyro Clean,0.0028,RF
+2,Dent,Temp. BHT at Trigger,0.0013,RF
+2,Dent,heating time (tens of seconds),0.001,RF
+2,Dent,Temp Z2,0.001,RF
+2,Dent,Temp Z1,0.001,RF
+2,Dent,Temp Z3,0.001,RF
+2,Dent,TTF Circuit 1 Temp,0.0006,RF
+2,Bumps / lumps,Pos Vinyl N Width,0.2784,L1_LR
+2,Bumps / lumps,Pos Vinyl N Length,0.2226,L1_LR
+2,Bumps / lumps,Temp Z1,0.1994,L1_LR
+2,Bumps / lumps,heating time (tens of seconds),0.1669,L1_LR
+2,Bumps / lumps,Roller Gap LH,0.0616,L1_LR
+2,Bumps / lumps,Capacity THT,0.0563,L1_LR
+2,Bumps / lumps,Pos Vinyl S Width_active,0.0446,L1_LR
+2,Burnt Carpet / Vynil,Pyro Clean,0.1634,GBM
+2,Burnt Carpet / Vynil,Temp Z3,0.0202,GBM
+2,Burnt Carpet / Vynil,Temp. THT at Trigger,0.0095,GBM
+2,Burnt Carpet / Vynil,Temp. BHT at Trigger,0.0095,GBM
+2,Burnt Carpet / Vynil,Temp Z2,0.0072,GBM
+2,Burnt Carpet / Vynil,Vacuum Time Tool Cavity B,0.0047,GBM
+2,Burnt Carpet / Vynil,heating time (tens of seconds),0.0029,GBM
+2,Low Glue/Read Thru/Impression,Pyro Clean,0.0511,GBM
+2,Low Glue/Read Thru/Impression,Temp. BHT at Trigger,0.0226,GBM
+2,Low Glue/Read Thru/Impression,TTF Circuit 1 Temp,0.0091,GBM
+2,Low Glue/Read Thru/Impression,Temp Z1,0.0081,GBM
+2,Low Glue/Read Thru/Impression,Machine Cycle Time,0.0043,GBM
+2,Low Glue/Read Thru/Impression,Vacuum Time Tool Cavity A,0.004,GBM
+2,Low Glue/Read Thru/Impression,Pos Vinyl N Width,0.0022,GBM
+8,Dent,heating time (tens of seconds),0.1858,GBM
+8,Dent,Pyro Clean,0.032,GBM
+8,Dent,prev_mct_capped,0.0248,GBM
+8,Dent,BT Circuit 2 Temp,0.0062,GBM
+8,Dent,Pos Vinyl S Width,0.0049,GBM
+8,Dent,Machine Cycle Time,0.0047,GBM
+8,Dent,Pos Vinyl S Length,0.001,GBM
+8,Bumps / lumps,Pyro Clean,0.0019,RF
+8,Bumps / lumps,Temp. THT at Trigger,0.0011,RF
+8,Bumps / lumps,heating time (tens of seconds),0.0007,RF
+8,Bumps / lumps,TTF Circuit 1 Temp,0.0006,RF
+8,Bumps / lumps,Pos Vinyl S Width,0.0006,RF
+8,Bumps / lumps,Temp Z2,0.0004,RF
+8,Bumps / lumps,Machine Cycle Time,0.0004,RF
