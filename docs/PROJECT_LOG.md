@@ -7,11 +7,12 @@
 
 ---
 
-## Current status (as of 2026-06-01)
+## Current status (as of 2026-06-01, PM — after team assumption review)
 
 | Aspect | State |
 |---|---|
-| **Phase** | Analysis & recommendation engine **complete**; delivered as notebooks + Excel/Word reports. Not yet deployed live. |
+| **Phase** | Gen-2 analysis delivered. **Modeling approach now updated** per the team's assumption review — see [`MODELING_UPDATES.md`](MODELING_UPDATES.md). Awaiting the May 14–28 data drop to implement + validate. |
+| **Modeling spec** | Phase 1 **done**: 6 changes (U-1…U-6) specified and evidence-checked against labeled data ([`../pipeline/20_assumption_update_checks.py`](../pipeline/20_assumption_update_checks.py)). Not yet wired into the notebook/engine (Phase 2, needs the new data). |
 | **Latest data** | `data/VF_export_new.csv` — 8,230 process rows, 11 Mar → 13 May 2026, 15 production days. |
 | **Latest analysis** | `notebooks/VAC_Forming_Scrap_Analysis_Final.ipynb` (runs on new data). |
 | **Latest deliverable** | `reports/Scrap_Recommendations_Report_v2.xlsx` (7 sheets + Live Recommendations). |
@@ -47,7 +48,14 @@ Generation 3 (May 26) was a **data refresh**, not a method change: same engine, 
 
 ## Next steps (pick up here)
 
-Ordered by leverage. None are started.
+**Immediate (Phase 2 — on the May 14–28 data drop):**
+
+- **N-A. Confirm the new export is scrap-labeled** (OQ-20). If yes → true out-of-time holdout; if not → we can only *issue* recommendations, not *score* them.
+- **N-B. Implement U-1…U-6** from [`MODELING_UPDATES.md`](MODELING_UPDATES.md) in the Final notebook/engine: re-encode Pos Vinyl (`_cam_blocked`, visible-only bands), retire the Pyro sweet-spot rule, add unified `is_cold_start` + gap/seq features, add color×temperature interactions + beige windows, add the recipe "engineering-setpoint" lane + Δ-from-prev features, add Tool-8 cross-tool fallback.
+- **N-C. Run the holdout protocol** (MODELING_UPDATES §5): freeze engine on ≤6 May, score 14–28 May per-(tool, defect), report action precision / false-fire, backtest cold-start & beige rates.
+- **N-D. Deliver** the "May 14–28 recommendations + how-we-did" report; append results here.
+
+**Standing items (pre-existing):**
 
 1. **Resolve data currency (blocker, ~½ day).** Obtain a refreshed `VF_Scrap_export.csv` that
    covers through 13 May, or explicitly scope the analysis to the labelled window (≤ 6 May).
@@ -99,7 +107,18 @@ Ordered by leverage. None are started.
 Append newest entries at the top. One entry per working session; note **what changed, what was
 learned, and what's next** so the thread is never lost.
 
-### 2026-06-01 — Reorganization & logging
+### 2026-06-01 (PM) — Team assumption review → modeling approach updated
+- Team returned verdicts on our DS assumptions: confirmed A2/A3/A4/A6/A7/A8; corrected the Pos Vinyl and Pyro-Clean encodings; gave process insights (warm-up is weather-driven, spikes are lunch restart not operators, recipes are editable mid-run, Tool-8 gaps are volume, beige is thermodynamic).
+- **Evidence-checked every claim** against the labeled data (`pipeline/20_assumption_update_checks.py`):
+  - Pyro sweet spot **unstable on a random split** → confirmed artifact (retire it).
+  - Cold-start (warm-up ∪ restart) **13.5 % vs 5.0 %**, p=2.5e-7 → unify thermally.
+  - Beige **8.7 %** vs black 4.1 %; runs cooler + more variable on THT → thermodynamic balance holds.
+  - Pos Vinyl: blocked rows scrap *less* (4.0 % vs 8.1 %); Wrinkle's Pos-Vinyl signal **δ 0.358 → 0.180** once blocked rows excluded → encoding was inflating it.
+- Wrote [`MODELING_UPDATES.md`](MODELING_UPDATES.md) (U-1…U-6 + validation plan); updated DECISIONS (D-02 superseded, D-06 revised, D-11…D-14), OPEN_QUESTIONS (Q3/Q8/Q9/Q10/Q11/Q12/Q15 resolved; OQ-18/19/20 added), DATA_DICTIONARY, FINDINGS §10.
+- **Learned:** the separate operational findings (warm-up, afternoon spike, beige) share **one root cause — thermal stability**. That reframes the recommendation story around temperature readiness.
+- **Next:** await the May 14–28 export; confirm it's labeled (OQ-20); implement U-1…U-6 and run the holdout.
+
+### 2026-06-01 (AM) — Reorganization & logging
 - Inventoried the entire repo; reconstructed the three-generation history (see CHANGELOG).
 - Restructured into `docs/ data/ notebooks/ pipeline/ reports/ figures/`; initialised git; fixed notebook paths.
 - Authored this log + README, CHANGELOG, DECISIONS, DATA_DICTIONARY, OPEN_QUESTIONS.

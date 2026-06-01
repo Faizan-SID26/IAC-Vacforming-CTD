@@ -17,13 +17,13 @@ from Generation 1.
 **Consequence.** Generation-1 pooled notebooks were archived. Defects turn out to be tool-locked
 anyway (Wrinkle≈T1, Low Glue≈T2, Bumps≈T8), which validates the choice.
 
-### D-02 · Exclude recipe-fixed parameters from causal ranking — **A**
+### D-02 · Exclude recipe-fixed parameters from causal ranking — **S** (superseded by D-11, 2026-06-01)
 **Decision.** Within each tool, parameters with coefficient of variation < 0.01 are treated as
 recipe constants and excluded from the deviation ranking.
 **Why.** A parameter that never varies inside a tool cannot explain why one part scrapped and another
 didn't. Including them adds noise and false "stable = important" reads.
-**Caveat.** If recipes are actually *editable* per part (open question Q10), these become candidates
-for *engineering changes* rather than runtime nudges — a different use, not a dead end.
+**Update.** The team confirmed recipes are **editable mid-run** (Q10 resolved). Low-CV params are
+still excluded from *per-part* ranking, but they are no longer off-limits — see **D-11**.
 
 ### D-03 · Rank by effect size (Cliff's δ), gated on significance — **A**
 **Decision.** Rank deviating parameters by |Cliff's δ| (CRITICAL>0.474, STRONG>0.33, MODERATE>0.20),
@@ -45,12 +45,15 @@ observational data (deviations are associations, not interventions).
 proves a simple threshold rule is insufficient and that the per-defect engine is needed. Don't promote
 it to a standalone alarm.
 
-### D-06 · Explicit handling of structural data surprises — **A**
+### D-06 · Explicit handling of structural data surprises — **A** (partially revised 2026-06-01)
 **Decision.** Treat `Machine Cycle Time = 9999` as a stoppage sentinel (mask + `mct_capped` flag);
 encode `Pos Vinyl *` as `(value, _active_flag)` due to bimodality; treat `Pyro Clean` as a cycle
 counter with a per-tool non-monotonic sweet spot; drop always-constant columns.
 **Why.** These columns break naive numeric treatment. See [`DATA_DICTIONARY.md`](DATA_DICTIONARY.md).
-**Caveat.** Each rests on an assumption that needs operator confirmation (Q1–Q7).
+**Update (team review).** MCT sentinel and dropped-constants **stand**. Two encodings revised:
+- **Pos Vinyl** zero = *camera blocked by excess material*, not "inactive" → see **D-12**.
+- **Pyro Clean** is *not* a clockwork-reset counter; the sweet spot is an artifact → see **D-13**.
+See [`MODELING_UPDATES.md`](MODELING_UPDATES.md) U-1/U-2 for evidence.
 
 ### D-07 · Good parts on the same tool are the baseline — **A**
 **Decision.** Reference "good" operating windows come from good parts *on that tool* (P5/P50/P95).
@@ -74,3 +77,32 @@ keeping its cached outputs honest) while the Final notebook stays on `VF_export_
 **Why.** Re-pointing EDA to new data without re-running would make its narrative outputs inconsistent
 with the input. This is a *temporary, documented* split — see PROJECT_LOG Next-Steps #2 to converge
 both onto one canonical generation once the scrap labels are refreshed.
+
+---
+
+> Decisions D-11…D-14 arise from the **2026-06-01 team assumption review**.
+> Full rationale + evidence in [`MODELING_UPDATES.md`](MODELING_UPDATES.md).
+
+### D-11 · Recipe-fixed params become an "engineering setpoint" lane, not discarded — **A** (2026-06-01)
+**Decision.** Keep low-CV params out of *per-part* deviation ranking, but surface them as
+recipe-level engineering levers, and add Δ-from-previous-part features for adjustable params.
+**Why.** Team confirmed recipes are editable mid-run and a change affects the next part. Supersedes D-02.
+
+### D-12 · Pos Vinyl zero = camera blocked (excess material); model the flag, band on visible rows — **A** (2026-06-01)
+**Decision.** Replace `_active` with `_cam_blocked = (value==0)`; compute Pos Vinyl percentile bands /
+deviation stats on camera-visible rows only.
+**Why.** A blocked reading isn't position 0; including the zeros dilutes the baseline and inflated the
+Wrinkle Pos-Vinyl signal (δ 0.358 → 0.180 on visible-only rows). Revises D-06.
+
+### D-13 · Retire the Pyro-Clean sweet-spot rule — **A** (2026-06-01)
+**Decision.** Remove the Pyro-Clean band overlay and `PYRO_CLEAN_DUE`/`WAIT_BEFORE_CLEAN` actions from
+the engine; keep Pyro as a feature only, pending Rohit's parameter list (OQ-18).
+**Why.** Team says pyro cleaning is not a fixed-clock reset; the sweet spot is unstable on a random
+split (artifact). Revises D-06.
+
+### D-14 · Unify cold-start (warm-up + restart) thermally; drop the operator/shift framing — **A** (2026-06-01)
+**Decision.** Model `is_cold_start = is_warmup OR is_restart`; add gap/seq features and color×temperature
+interactions with beige-specific tight heating windows. Do not model shift/operator identity.
+**Why.** Team confirmed spikes are lunch cool-down/restart (same operators) and the warm-up effect is
+weather-driven thermal; beige is a thermodynamic-balance problem. Evidence: cold-start 13.5 % vs 5.0 %
+(p=2.5e-7); beige 8.7 % vs black 4.1 %.

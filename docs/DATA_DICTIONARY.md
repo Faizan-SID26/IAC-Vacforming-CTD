@@ -33,8 +33,8 @@ operator confirmation — cross-referenced to [`OPEN_QUESTIONS.md`](OPEN_QUESTIO
 | Parameter | Behaviour | Handling | Q |
 |---|---|---|---|
 | `Machine Cycle Time` | `= 9999` in 9.5 % of rows (a cap, not a real time; normal ~660–780). | Treat 9999 as missing; add `mct_capped` + `prev_mct_capped` flags (stoppage sentinel). | Q2 |
-| `Pyro Clean` | Monotonic cycle counter (951 unique, 1→951). Non-monotonic relationship to scrap → per-tool sweet spot. | Counter; per-tool sweet-spot band rule. | Q1, Q13, Q17 |
-| `Pos Vinyl N/S Length/Width` | Bimodal: ~49–60 % zero, non-zero ≈ 200+. | Encode as `(value, _active_flag)`. | Q3 |
+| `Pyro Clean` | Looks like a monotonic counter (951 unique). ~~Per-tool sweet spot.~~ | ⚠️ **Revised 2026-06-01:** NOT a fixed-clock reset (team); sweet spot is an artifact (unstable on split). **Feature only — sweet-spot rule retired** (D-13). Trace pending OQ-18. | Q1, Q13, Q17 |
+| `Pos Vinyl N/S Length/Width` | Bimodal: ~49–60 % zero, non-zero ≈ 200+. | ⚠️ **Revised 2026-06-01:** zero = **camera blocked by excess material** (team), not "inactive". Encode `_cam_blocked = (value==0)`; compute bands/deviations on **visible rows (value>0) only** (D-12). | Q3 |
 | `BT Circuit 2 Temp` | Two regimes: mostly 22–28, tail 300–833; 966 zeros. | Keep raw; model handles. | Q7 |
 | `TTF Circuit 1 Temp` | 2,240 zeros (30 %); else ~28–38. | Keep; zero may = inactive circuit. | — |
 | `Temp Z4` | 5,140 zeros (70 %); else ~100–180. | Bimodal off/active like Pos Vinyl. | — |
@@ -51,7 +51,10 @@ operator confirmation — cross-referenced to [`OPEN_QUESTIONS.md`](OPEN_QUESTIO
 The **Stretch Length** family (`Stetch Length Pick Up / Stretch 1–3 / Form` — note the source-typo
 "Stetch"), the **Stretch Cross** family (`Stretch Cross Pick Up / Stretch 1–3 / Form`), `Roller Gap LH/RH`,
 `Glue Temp`, `Top Tool Pos Close`. These vary *between* tools (recipe differences) but are nearly
-constant *within* a tool. See DECISIONS D-02. (Whether they're editable per part = Q10.)
+constant *within* a tool. See DECISIONS D-02. **Update 2026-06-01:** the team confirmed recipes are
+**editable mid-run** and a change affects the *immediate next part* (Q10 resolved). These params stay
+out of *per-part* ranking but are now surfaced as **engineering setpoints**, with `Δ-from-previous-part`
+features added (D-11).
 
 ---
 
@@ -92,8 +95,14 @@ Grouped roughly by process stage. Ranges = [min … P50 … max] from the old ex
 - `Tool Number` ∈ {1, 2, 8}.
 
 ### Engineered features (added in analysis)
-`is_warmup` (first 20 parts of a production day on a tool) · `prev_mct_capped` · `color`/`family`
+`is_warmup` (first parts of a production day on a tool) · `prev_mct_capped` · `color`/`family`
 parsed from `PartDesc` · `is_scrap` (= scrap join hit).
+
+**Updated feature set (2026-06-01, per [`MODELING_UPDATES.md`](MODELING_UPDATES.md)):**
+`is_cold_start` = `is_warmup` ∪ `is_restart` (first part after a >~25-min intra-day gap) ·
+`mins_since_prev_on_tool` · `seq_in_day` · `{PosVinyl}_cam_blocked` (replaces `_active`) ·
+`{recipe_param}_delta` (vs previous part on tool) · `color × heating-param` interactions.
+Dropped: any shift/operator feature (spikes are thermal, not personnel — D-14).
 
 ---
 

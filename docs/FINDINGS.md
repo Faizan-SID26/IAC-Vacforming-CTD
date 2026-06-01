@@ -230,6 +230,14 @@ The output of a live demo (worst-violating scrap example per defect) fires 2–6
 
 These are the assumptions we made because we cannot verify them from data alone. If any prove wrong, the affected finding should be re-examined.
 
+> ✅/⚠️ **Team review (2026-06-01).** The operations/engineering team reviewed these. **Confirmed:**
+> A2 (ID), A3 (`BuiltTime`, from printed labels), A4 (`ScrapTime` = QC time), A6 (good baseline),
+> A7 (P5–P95), A8 (labels). **Overturned:** A9 (`Pyro Clean` is *not* a fixed-clock counter — sweet-spot
+> retired) and A11 (`Pos Vinyl` zero = *camera blocked by excess material*, not "inactive"). Plus
+> process insights (warm-up is weather-driven; spikes are lunch restart, not operators; recipes are
+> editable mid-run; beige is thermodynamic). Full translation to modeling changes in
+> [`MODELING_UPDATES.md`](MODELING_UPDATES.md); resolutions tracked in [`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md).
+
 ### 10.1 Scoping assumptions
 
 - **A1. Process-defect taxonomy.** We assume the 9 defect codes listed in §3.5 are *operator-actionable* and the other 4 (Hole, Broken / Fracture, Fabric Flaw, Fabric Torn) are upstream / material defects out of scope. **Risk if wrong**: some "non-process" defects may actually be process-actionable, in which case we are under-counting recoverable scrap.
