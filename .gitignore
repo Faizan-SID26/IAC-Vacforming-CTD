@@ -1,3 +1,7 @@
+# Raw data — kept local, never pushed (see data/README.md for provenance)
+/data/*
+!/data/README.md
+
 # Excel/Office lock files
 ~$*
 *.tmp
