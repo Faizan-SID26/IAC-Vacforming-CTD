@@ -50,7 +50,9 @@ it to a standalone alarm.
 encode `Pos Vinyl *` as `(value, _active_flag)` due to bimodality; treat `Pyro Clean` as a cycle
 counter with a per-tool non-monotonic sweet spot; drop always-constant columns.
 **Why.** These columns break naive numeric treatment. See [`DATA_DICTIONARY.md`](DATA_DICTIONARY.md).
-**Update (team review).** MCT sentinel and dropped-constants **stand**. Two encodings revised:
+**Update (team review).** MCT sentinel and dropped-constants **stand** — 9999 confirmed as the
+recorder's **max-value overflow** (field saturates when the true cycle time exceeds the largest
+recordable number; Q2 resolved), so keep masking it as missing. Two encodings revised:
 - **Pos Vinyl** zero = *camera blocked by excess material*, not "inactive" → see **D-12**.
 - **Pyro Clean** is *not* a clockwork-reset counter; the sweet spot is an artifact → see **D-13**.
 See [`MODELING_UPDATES.md`](MODELING_UPDATES.md) U-1/U-2 for evidence.

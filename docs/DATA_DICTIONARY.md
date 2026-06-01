@@ -32,7 +32,7 @@ operator confirmation — cross-referenced to [`OPEN_QUESTIONS.md`](OPEN_QUESTIO
 
 | Parameter | Behaviour | Handling | Q |
 |---|---|---|---|
-| `Machine Cycle Time` | `= 9999` in 9.5 % of rows (a cap, not a real time; normal ~660–780). | Treat 9999 as missing; add `mct_capped` + `prev_mct_capped` flags (stoppage sentinel). | Q2 |
+| `Machine Cycle Time` | `= 9999` in 9.5 % of rows (normal ~660–780). **Confirmed (team):** 9999 is the recorder's **max value** — the field saturates when the true cycle time exceeds the largest recordable number (4-digit overflow). | Keep treating 9999 as **missing** (true value unknown, only known to be ≥ max → an abnormally long / paused cycle); keep `mct_capped` + `prev_mct_capped` flags. | Q2 ✅ |
 | `Pyro Clean` | Looks like a monotonic counter (951 unique). ~~Per-tool sweet spot.~~ | ⚠️ **Revised 2026-06-01:** NOT a fixed-clock reset (team); sweet spot is an artifact (unstable on split). **Feature only — sweet-spot rule retired** (D-13). Trace pending OQ-18. | Q1, Q13, Q17 |
 | `Pos Vinyl N/S Length/Width` | Bimodal: ~49–60 % zero, non-zero ≈ 200+. | ⚠️ **Revised 2026-06-01:** zero = **camera blocked by excess material** (team), not "inactive". Encode `_cam_blocked = (value==0)`; compute bands/deviations on **visible rows (value>0) only** (D-12). | Q3 |
 | `BT Circuit 2 Temp` | Two regimes: mostly 22–28, tail 300–833; 966 zeros. | Keep raw; model handles. | Q7 |

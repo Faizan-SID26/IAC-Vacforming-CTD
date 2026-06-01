@@ -252,7 +252,7 @@ These are the assumptions we made because we cannot verify them from data alone.
 - **A7. P5–P95 is a reasonable operating window.** Wider would dilute the signal; narrower would over-fire. We did not run a cost-weighted optimisation of band width.
 - **A8. Defect labels are accurate.** We assume the scrap `Desc` column is correctly assigned by inspection. Some defects look ambiguous (e.g. "Dent" vs "Bumps / lumps") and could be subjectively labelled.
 - **A9. `Pyro Clean` is a counter** (cycles since last clean). The monotonicity check (≤ 0.5 % decreases) strongly supports this. If it is actually a different quantity (e.g. a setpoint), the sweet-spot recommendation must be re-interpreted.
-- **A10. `Machine Cycle Time = 9999` is a stoppage sentinel.** The 9.5 % prevalence and the elevated scrap rate around it are consistent with this. A different cause (e.g. data-logger error) would change how the `prev_mct_capped` flag should be used.
+- **A10. `Machine Cycle Time = 9999` is a stoppage sentinel.** The 9.5 % prevalence and the elevated scrap rate around it are consistent with this. ✅ **Confirmed/refined (team, 2026-06-01):** 9999 is the **recorder's maximum value** — the field saturates when the true cycle time exceeds the largest recordable number (overflow). So it does mark an abnormally long / paused cycle; the true duration is unknown (only ≥ max), which is exactly why we keep treating it as missing + a flag.
 - **A11. `Pos Vinyl *` zero values mean the feature is inactive.** Treating them as a `_active` flag follows. If they are instead "default-when-unset", this encoding is still safer than treating zero as a numerical level.
 
 ### 10.3 What we did *not* assume (and explicitly avoided)

@@ -41,7 +41,7 @@ The full, citable analysis write-up is [`docs/FINDINGS.md`](docs/FINDINGS.md).
 | [`DECISIONS.md`](docs/DECISIONS.md) | Key methodological decisions and *why* they were made (so they aren't re-litigated). |
 | [`DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) | The 40 process parameters, sentinels, encodings, and defect taxonomy. |
 | [`OPEN_QUESTIONS.md`](docs/OPEN_QUESTIONS.md) | The 17 open process/engineering questions blocking deeper conclusions. |
-| `Process_VAC_Forming.vsdx` | Visio diagram of the physical forming process. |
+| `Process_VAC_Forming.pdf` | Diagram of the physical forming process. |
 
 ---
 

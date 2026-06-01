@@ -14,7 +14,7 @@ come in, and log resolutions in [`PROJECT_LOG.md`](PROJECT_LOG.md).
 | # | Question | Why it matters | Pri | Status |
 |---|---|---|---|---|
 | Q1 | **`Pyro Clean`** — exact meaning? Cycles since last pyro clean? Why does Tool 8 *never* reset in 56 days (min = 496)? | The per-tool Pyro-Clean sweet-spot recommendation rests on it being a cycle counter (assumption A9). | 🔴 | ✅ **Resolved (2026-06-01):** NOT a fixed-clock reset; sweet spot is an artifact → rule retired (D-13). Counter trace pending → **OQ-18 (Rohit)**. |
-| Q2 | **`Machine Cycle Time = 9999`** — what event? Stop, sensor-not-ready, reset, manual override? Real cycle time during these? | Drives the `mct_capped` / `prev_mct_capped` stoppage-sentinel logic and the "next part at elevated risk" finding (A10). | 🔴 | Open |
+| Q2 | **`Machine Cycle Time = 9999`** — what event? Stop, sensor-not-ready, reset, manual override? Real cycle time during these? | Drives the `mct_capped` / `prev_mct_capped` stoppage-sentinel logic and the "next part at elevated risk" finding (A10). | 🔴 | ✅ **Resolved (2026-06-01):** 9999 is the **recorder's max value** — the field saturates when the true cycle time exceeds the largest recordable number. So it marks an abnormally long / paused cycle (true value unknown, ≥ max). Encoding unchanged (treat as missing + flag). |
 | Q3 | **`Pos Vinyl N/S Length/Width` = 0** — feature disabled by recipe, or default-when-unset? | Determines whether the `_active` encoding is correct (A11). | 🟡 | ✅ **Resolved (2026-06-01):** zero = **camera physically blocked by excess material**. Re-encode as `_cam_blocked`; band on visible rows (D-12, MODELING_UPDATES U-1). |
 | Q4 | **`TTF Circuit 2 Temp = 0` everywhere** — sensor removed, feature retired, or always-off config? | Column is dropped as a constant; confirm it's truly dead. | ⚪ | Open |
 | Q5 | **`Capacity BHT` capped at 70** (5.4 % of rows) & **`Capacity THT` capped at 85** — hardware ceiling or controller setpoint cap? | Affects how to read "low capacity" under-heating signatures (Bumps on T8). | 🟡 | Open |
@@ -52,10 +52,11 @@ come in, and log resolutions in [`PROJECT_LOG.md`](PROJECT_LOG.md).
 ---
 
 ### What's resolved vs still open (post-review)
-- ✅ **Resolved by the team:** Q3, Q8, Q9, Q10, Q11, Q12, Q15, and Q1/Q13/Q17 (Pyro, pending the OQ-18 trace).
+- ✅ **Resolved by the team:** Q2 (MCT=9999 = recorder max/overflow), Q3, Q8, Q9, Q10, Q11, Q12, Q15, and Q1/Q13/Q17 (Pyro, pending the OQ-18 trace).
 - ◐ **Partial:** Q14 (lag confirmed; labeling of the new export = OQ-20).
-- ⬜ **Still open:** Q2 (MCT=9999 event), Q4–Q7 (sensor semantics), Q5 (capacity caps), Q16 (Burnt Carpet sub-typing), plus new **OQ-18/19/20**.
+- ⬜ **Still open:** Q4 (TTF C2 dead), Q5 (capacity caps), Q6 (`Top Tool Pos Close` levels), Q7 (`BT C2` regimes), Q16 (Burnt Carpet sub-typing), plus new **OQ-18/19/20**.
 
 ### Most-leverage to chase next
-**OQ-20 + OQ-18 + Q2** — OQ-20 decides if the incoming fortnight is a true validation set; OQ-18
-unblocks any Pyro recommendation; Q2 still underpins the stoppage-sentinel logic.
+**OQ-20 + OQ-18 + Q5** — OQ-20 decides if the incoming fortnight is a true validation set; OQ-18
+unblocks any Pyro recommendation; Q5 clarifies whether the capacity caps are a real under-heating
+signature (Bumps on T8) or just a controller ceiling.
